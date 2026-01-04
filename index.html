@@ -5,36 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tura's Elegance - Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #fafafa; color: #222; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #fafafa; color: #222; padding-bottom: 80px; }
         
-        /* Header Style Like Kamae */
         header { background: white; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
         .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #880e4f; margin-bottom: 10px; }
         header h1 { font-size: 20px; margin: 0; color: #880e4f; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Categories Section */
         .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; white-space: nowrap; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
-        .cat-item { background: white; padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.3s; }
+        .cat-item { background: white; padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; font-size: 13px; font-weight: 500; }
         .cat-item.active { background: #880e4f; color: white; border-color: #880e4f; }
 
-        /* Product Grid */
-        .container { padding: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 80px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative; }
-        .product-img { width: 100%; aspect-ratio: 1/1; background: #eee; object-fit: cover; }
-        .product-info { padding: 12px; text-align: left; }
-        .product-name { font-size: 14px; font-weight: 600; margin: 0; }
-        .product-price { color: #880e4f; font-weight: bold; font-size: 15px; margin: 5px 0; }
-        
-        /* Delivery Info Card */
-        .info-card { grid-column: span 2; background: #fff5f8; padding: 15px; border-radius: 12px; border: 1px dashed #880e4f; margin-top: 10px; }
-        .info-card p { font-size: 12px; margin: 5px 0; color: #555; }
+        .container { padding: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; }
+        .product-img { width: 100%; aspect-ratio: 1/1; background: #f0f0f0; object-fit: cover; }
+        .product-info { padding: 10px; }
+        .product-price { color: #880e4f; font-weight: bold; }
 
-        /* Sticky Footer Button */
-        .footer-action { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); display: flex; justify-content: center; }
-        .btn-order { background: #25D366; color: white; text-decoration: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; font-size: 16px; display: flex; align-items: center; gap: 8px; width: 90%; justify-content: center; }
+        /* Kamae Style Bottom Navigation */
+        .bottom-nav { 
+            position: fixed; bottom: 0; width: 100%; background: white; 
+            display: flex; justify-content: space-around; padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border-top: 1px solid #eee; z-index: 2000;
+        }
+        .nav-item { text-align: center; text-decoration: none; color: #666; font-size: 11px; flex: 1; }
+        .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: #880e4f; }
+        .nav-item.whatsapp { color: #25D366; }
     </style>
 </head>
 <body>
@@ -52,31 +52,34 @@
 </div>
 
 <div class="container">
-    <div class="info-card">
-        <strong>🚚 ডেলিভারি চার্জ:</strong>
-        <p>📍 ঢাকা: ৮০৳ | 📍 ঢাকার বাইরে: ১২০৳</p>
-        <p>⏱️ সময়: ২-৩ কার্যদিবস</p>
-    </div>
-
-    <div class="product-card">
-        <img src="logo.png" class="product-img"> <div class="product-info">
-            <p class="product-name">Your Product Name</p>
-            <p class="product-price">000 ৳</p>
-        </div>
-    </div>
-
     <div class="product-card">
         <img src="logo.png" class="product-img">
         <div class="product-info">
-            <p class="product-name">Your Product Name</p>
+            <p style="font-size: 13px; margin: 5px 0;">Your Product</p>
+            <p class="product-price">000 ৳</p>
+        </div>
+    </div>
+    <div class="product-card">
+        <img src="logo.png" class="product-img">
+        <div class="product-info">
+            <p style="font-size: 13px; margin: 5px 0;">Your Product</p>
             <p class="product-price">000 ৳</p>
         </div>
     </div>
 </div>
 
-<div class="footer-action">
-    <a href="https://api.whatsapp.com/send?phone=8801794296589&text=আসসালামু%20আলাইকুম,%20আমি%20Tura's%20Elegance%20ওয়েবসাইট%20থেকে%20একটি%20পণ্য%20অর্ডার%20করতে%20চাই।" class="btn-order">
-        💬 অর্ডার করতে মেসেজ দিন
+<div class="bottom-nav">
+    <a href="#" class="nav-item active">
+        <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="#" class="nav-item">
+        <i class="fa-solid fa-list"></i> Category
+    </a>
+    <a href="https://api.whatsapp.com/send?phone=8801794296589&text=আসসালামু%20আলাইকুম" class="nav-item whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+    </a>
+    <a href="tel:01794296589" class="nav-item">
+        <i class="fa-solid fa-phone"></i> Contact
     </a>
 </div>
 
