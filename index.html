@@ -1,47 +1,50 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tura's Elegance - Premium Store</title>
+    <title>Tura's Elegance - Order Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #fafafa; color: #222; padding-bottom: 70px; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Poppins', 'Arial', sans-serif; margin: 0; background-color: #f9f9f9; color: #333; padding-bottom: 80px; }
         
-        /* Header */
-        header { background: white; padding: 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #880e4f; margin-bottom: 10px; }
-        header h1 { font-size: 20px; margin: 0; color: #880e4f; text-transform: uppercase; letter-spacing: 1px; }
+        header { background: white; padding: 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .logo { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #880e4f; }
 
-        /* Categories Section */
-        .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; white-space: nowrap; scrollbar-width: none; background: #fff; }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-item { background: white; padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; font-size: 13px; font-weight: 500; cursor: pointer; }
-        .cat-item.active { background: #880e4f; color: white; border-color: #880e4f; }
+        .container { max-width: 500px; margin: 20px auto; padding: 15px; }
 
-        /* Product Container */
-        .container { padding: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; }
-        .product-img { width: 100%; aspect-ratio: 1/1; background: #f0f0f0; object-fit: cover; }
-        .product-info { padding: 10px; }
-        .product-name { font-size: 13px; margin: 5px 0; font-weight: 600; }
-        .product-price { color: #880e4f; font-weight: bold; font-size: 14px; }
+        /* Unique Message Box */
+        .notice-box { 
+            background: #fff5f8; border: 2px dashed #880e4f; padding: 15px; 
+            border-radius: 12px; margin-bottom: 20px; text-align: center;
+        }
+        .notice-box h3 { color: #880e4f; margin: 0 0 10px 0; font-size: 18px; }
+        .notice-box p { font-size: 14px; line-height: 1.5; margin: 0; color: #555; }
 
-        /* Information Section Styles */
-        .content-section { padding: 30px 20px; background: #fff; margin-top: 20px; border-top: 1px solid #eee; }
-        .content-section h2 { font-size: 18px; color: #880e4f; margin-bottom: 15px; border-left: 4px solid #880e4f; padding-left: 10px; }
-        .content-section p { font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 15px; }
+        /* Form Styling */
+        .order-form { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .order-form h2 { font-size: 20px; margin-bottom: 20px; color: #333; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+        
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; color: #444; }
+        .input-group input, .input-group textarea { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            font-size: 14px; outline: none; transition: 0.3s;
+        }
+        .input-group input:focus { border-color: #880e4f; box-shadow: 0 0 5px rgba(136, 14, 79, 0.1); }
 
-        /* Footer Like Kamae */
-        footer { background: #fff; padding: 30px 20px; border-top: 1px solid #eee; margin-top: 20px; }
-        .footer-links h3 { font-size: 16px; margin-bottom: 15px; color: #333; }
-        .footer-links a { display: block; text-decoration: none; color: #666; font-size: 14px; margin-bottom: 10px; }
-        .social-icons { margin: 20px 0; }
-        .social-icons a { display: inline-block; margin-right: 15px; font-size: 22px; color: #880e4f; }
+        .btn-confirm { 
+            width: 100%; background: #25D366; color: white; border: none; padding: 15px; 
+            border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
+        }
 
-        /* Bottom Sticky Nav */
+        /* Delivery Badge */
+        .delivery-info { background: #eee; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 13px; text-align: center; }
+
+        /* Bottom Nav */
         .bottom-nav { 
             position: fixed; bottom: 0; width: 100%; background: white; 
             display: flex; justify-content: space-around; padding: 10px 0;
@@ -54,84 +57,72 @@
 </head>
 <body>
 
-<header id="home">
+<header>
     <img src="logo.png" alt="Logo" class="logo">
-    <h1>Tura's Elegance 💖</h1>
+    <h1 style="font-size: 16px; margin: 5px 0; color: #880e4f;">TURA'S ELEGANCE</h1>
 </header>
 
-<div class="categories">
-    <div class="cat-item active">All Items</div>
-    <div class="cat-item">New Arrivals</div>
-    <div class="cat-item">Cosmetics</div>
-    <div class="cat-item">Gifts</div>
-</div>
-
 <div class="container">
-    <div class="product-card">
-        <img src="logo.png" class="product-img">
-        <div class="product-info">
-            <p class="product-name">Your Product Name</p>
-            <p class="product-price">000 ৳</p>
+    <div class="notice-box">
+        <h3>সম্মানিত ক্রেতা ✨</h3>
+        <p>আপনার প্রতিটি অর্ডার আমাদের কাছে আমানত। সঠিক পণ্যটি আপনার হাতে পৌঁছে দেয়াই আমাদের লক্ষ্য। অনুগ্রহ করে আপনার সঠিক তথ্য দিয়ে ফরমটি পূরণ করুন।</p>
+    </div>
+
+    <div class="order-form">
+        <h2>Billing Details 📝</h2>
+        <div class="input-group">
+            <label>আপনার নাম লিখুন *</label>
+            <input type="text" id="custName" placeholder="উদাঃ আব্দুল্লাহ আল মামুন" required>
         </div>
-    </div>
-    <div class="product-card">
-        <img src="logo.png" class="product-img">
-        <div class="product-info">
-            <p class="product-name">Your Product Name</p>
-            <p class="product-price">000 ৳</p>
+        <div class="input-group">
+            <label>আপনার পূর্ণাঙ্গ ঠিকানা *</label>
+            <textarea id="custAddress" rows="3" placeholder="বাসা নং, রোড নং, উপজেলা, জেলা" required></textarea>
         </div>
+        <div class="input-group">
+            <label>আপনার ফোন নম্বর লিখুন *</label>
+            <input type="tel" id="custPhone" placeholder="০১XXXXXXXXX" required>
+        </div>
+
+        <div class="delivery-info">
+            🚚 ঢাকা: ৮০৳ | ঢাকার বাইরে: ১২০৳
+        </div>
+
+        <button class="btn-confirm" onclick="sendOrder()">
+            <i class="fa-brands fa-whatsapp"></i> অর্ডার কনফার্ম করুন
+        </button>
     </div>
 </div>
-
-<div class="content-section" id="privacy">
-    <h2>Privacy Policy</h2>
-    <p>Tura's Elegance-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্য যেমন নাম, ঠিকানা এবং ফোন নম্বর শুধুমাত্র আপনার অর্ডার ডেলিভারি করার উদ্দেশ্যে ব্যবহার করি।</p>
-</div>
-
-<div class="content-section" id="terms">
-    <h2>Terms & Conditions</h2>
-    <p>১. অর্ডার কনফার্ম করার জন্য সঠিক নাম ও ঠিকানা প্রদান করতে হবে।<br>
-    ২. ডেলিভারি ম্যান থাকাকালীন পণ্য চেক করে গ্রহণ করুন।<br>
-    ৩. পণ্যের স্টক থাকা সাপেক্ষে দ্রুত ডেলিভারি দেওয়া হবে।</p>
-</div>
-
-<div class="content-section" id="returns">
-    <h2>Returns & Refund</h2>
-    <p>যদি পণ্যে কোনো ত্রুটি থাকে তবে ডেলিভারি পাওয়ার ২৪ ঘণ্টার মধ্যে আমাদের জানান। আমরা পণ্য পরিবর্তন করে দেব। তবে কসমেটিকস আইটেম ব্যবহারের পর ফেরতযোগ্য নয়।</p>
-</div>
-
-<footer>
-    <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="#home">Home</a>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#terms">Terms and Conditions</a>
-        <a href="#returns">Returns & Refund</a>
-    </div>
-
-    <div class="social-icons">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-    </div>
-    
-    <p style="font-size: 12px; color: #999;">© 2026 Tura's Elegance | All Rights Reserved.</p>
-</footer>
 
 <div class="bottom-nav">
-    <a href="#home" class="nav-item active">
+    <a href="index.html" class="nav-item">
         <i class="fa-solid fa-house"></i> Home
     </a>
-    <a href="#" class="nav-item">
-        <i class="fa-solid fa-list"></i> Category
-    </a>
-    <a href="https://api.whatsapp.com/send?phone=8801794296589&text=আসসালামু%20আলাইকুম" class="nav-item" style="color: #25D366;">
+    <a href="https://api.whatsapp.com/send?phone=8801794296589" class="nav-item" style="color: #25D366;">
         <i class="fa-brands fa-whatsapp"></i> Chat
     </a>
     <a href="tel:01794296589" class="nav-item">
         <i class="fa-solid fa-phone"></i> Call
     </a>
 </div>
+
+<script>
+    function sendOrder() {
+        const name = document.getElementById('custName').value;
+        const address = document.getElementById('custAddress').value;
+        const phone = document.getElementById('custPhone').value;
+
+        if(name === "" || address === "" || phone === "") {
+            alert("দয়া করে সব তথ্য পূরণ করুন!");
+            return;
+        }
+
+        // হোয়াটসঅ্যাপ মেসেজ ফরম্যাট
+        const message = `আসসালামু আলাইকুম,%0Aআমি একটি অর্ডার করতে চাই।%0A%0A*অর্ডার ডিটেইলস:*%0A------------------------%0A👤 নাম: ${name}%0A📍 ঠিকানা: ${address}%0A📞 ফোন নম্বর: ${phone}%0A------------------------%0Aধন্যবাদ!`;
+
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=8801794296589&text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
 
 </body>
 </html>
