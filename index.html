@@ -8,9 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background-color: #fff; color: #333; overflow-x: hidden; }
         
-        nav { padding: 40px 20px 10px; text-align: center; background: #fff; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #fff5f8;
+            background-image: url('https://www.transparenttextures.com/patterns/clean-gray-paper.png'), 
+                              linear-gradient(135deg, rgba(255, 245, 248, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%);
+            background-attachment: fixed;
+            color: #333; 
+            overflow-x: hidden; 
+        }
+        
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/flowers.png');
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav { padding: 40px 20px 10px; text-align: center; }
         .logo-text { 
             font-family: 'Playfair Display', serif; 
             font-size: 38px; 
@@ -24,85 +43,64 @@
         .hero { 
             position: relative; 
             padding: 20px 20px 40px; 
-            background: #fff; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             text-align: center;
         }
         .hero-script { font-family: 'Great Vibes', cursive; color: #ff80bf; font-size: 28px; margin-bottom: 5px; }
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 42px; 
-            line-height: 1.1; 
-            font-weight: 900; 
-            color: #1a1a1a;
-            margin-bottom: 25px;
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 42px; line-height: 1.1; font-weight: 900; color: #1a1a1a; margin-bottom: 25px; }
         
         .logo-container {
-            width: 160px;
-            height: 160px;
-            background: #fff0f5; 
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #ffdeeb;
+            width: 160px; height: 160px;
+            background: #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 3px solid #ffdeeb;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(255, 128, 191, 0.15);
+            box-shadow: 0 15px 35px rgba(255, 128, 191, 0.25);
             margin-top: 10px;
         }
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .logo-container img { width: 100%; height: 100%; object-fit: contain; }
 
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 20px; padding-bottom: 100px; }
-        .card { background: #fff; text-align: left; }
-        .card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; background: #f9f9f9; }
+        .card { 
+            background: rgba(255, 255, 255, 0.85); 
+            padding: 12px; border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; }
         .card h3 { font-size: 14px; font-weight: 600; margin: 12px 0 5px; color: #222; }
-        .price { font-size: 14px; font-weight: bold; color: #d63384; margin-bottom: 12px; }
+        .price { font-size: 15px; font-weight: bold; color: #d63384; margin-bottom: 12px; }
         
         .btn-add-cart { 
-            width: 100%; padding: 12px; 
-            background: #111; border: none; 
+            width: 100%; padding: 12px; background: #111; border: none; 
             color: #fff; font-size: 11px; font-weight: bold; 
-            text-transform: uppercase; cursor: pointer; border-radius: 4px;
+            text-transform: uppercase; cursor: pointer; border-radius: 6px;
         }
 
         .bag-icon {
-            position: fixed; top: 25px; right: 20px; 
-            background: #1a1a1a; color: white; 
-            width: 45px; height: 45px; border-radius: 50%; 
+            position: fixed; top: 25px; right: 20px; background: #1a1a1a; 
+            color: white; width: 45px; height: 45px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
         #cart-count { position: absolute; top: -5px; right: -5px; background: #ff4d4d; font-size: 10px; padding: 2px 6px; border-radius: 50%; border: 2px solid #fff; }
 
         .cart-drawer { position: fixed; right: -100%; top: 0; width: 100%; height: 100%; background: white; z-index: 2000; transition: 0.4s; padding: 30px; overflow-y: auto; }
         .cart-drawer.active { right: 0; }
-        .btn-checkout { width: 100%; padding: 18px; background: #25D366; color: white; border: none; font-weight: bold; font-size: 16px; margin-top: 30px; cursor: pointer; border-radius: 10px; }
+        .btn-checkout { width: 100%; padding: 18px; background: #25D366; color: white; border: none; font-weight: bold; font-size: 16px; margin-top: 30px; cursor: pointer; border-radius: 12px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo-text">Tura's Elegance</div>
-</nav>
-
-<div class="bag-icon" onclick="toggleCart()">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <span id="cart-count">0</span>
-</div>
+<nav><div class="logo-text">Tura's Elegance</div></nav>
+<div class="bag-icon" onclick="toggleCart()"><i class="fa-solid fa-bag-shopping"></i><span id="cart-count">0</span></div>
 
 <section class="hero">
     <span class="hero-script">Gift beauty</span>
     <h1>like you <br>mean it.</h1>
-
-    <div class="logo-container">
-        <img src="logo.png" alt="Tura's Logo">
-    </div>
+    <div class="logo-container"><img src="logo.png" alt="Tura's Logo"></div>
 </section>
 
 <div class="grid">
@@ -128,8 +126,7 @@
     <div id="cart-items"></div>
     <div style="margin-top: 30px; border-top: 2px solid #111; padding-top: 20px;">
         <div style="display: flex; justify-content: space-between; font-size: 20px; font-weight: bold;">
-            <span>Total:</span>
-            <span><span id="total-amount">0</span> ৳</span>
+            <span>Total:</span><span><span id="total-amount">0</span> ৳</span>
         </div>
         <button class="btn-checkout" onclick="goToCheckout()">Order Now on WhatsApp</button>
     </div>
@@ -137,23 +134,15 @@
 
 <script>
     let cart = [];
-    function addToCart(name, price) {
-        cart.push({name, price});
-        updateCartUI();
-        toggleCart(); 
-    }
+    function addToCart(name, price) { cart.push({name, price}); updateCartUI(); toggleCart(); }
     function updateCartUI() {
         document.getElementById('cart-count').innerText = cart.length;
         const cartItemsDiv = document.getElementById('cart-items');
         cartItemsDiv.innerHTML = '';
         let total = 0;
-        cart.forEach((item, index) => {
+        cart.forEach((item) => {
             total += item.price;
-            cartItemsDiv.innerHTML += `
-                <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:15px; border-bottom: 1px solid #f9f9f9; padding-bottom: 10px;">
-                    <span>${item.name}</span>
-                    <span style="font-weight:600;">${item.price} ৳</span>
-                </div>`;
+            cartItemsDiv.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:20px;"><span>${item.name}</span><strong>${item.price} ৳</strong></div>`;
         });
         document.getElementById('total-amount').innerText = total;
     }
@@ -165,6 +154,5 @@
         window.location.href = `order.html?products=${encodeURIComponent(productNames)}&total=${totalPrice}`;
     }
 </script>
-
 </body>
-        </html>
+</html>
