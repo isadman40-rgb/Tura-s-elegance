@@ -32,14 +32,18 @@
         .btn-add-cart { width: 100%; padding: 12px; background: #111; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer; }
 
         /* রিভিউ সেকশন */
-        .reviews { padding: 50px 20px; background: #fffafc; white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; text-align: center; }
+        .reviews { padding: 50px 20px; background: #fffafc; white-space: nowrap; overflow-x: auto; text-align: center; }
         .review-card { background: white; padding: 20px; border-radius: 15px; margin: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); display: inline-block; width: 280px; white-space: normal; vertical-align: top; text-align: left; border: 1px solid #ffeef4; }
 
         /* ফুটার */
         footer { background: #fff; padding: 60px 20px 20px; border-top: 1px solid #ffdeeb; margin-top: 50px; }
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
-        .payment-icons { display: flex; gap: 12px; margin-top: 15px; align-items: center; }
-        .payment-icons img { height: 25px; opacity: 0.8; filter: grayscale(20%); }
+        
+        /* পেমেন্ট আইকন স্টাইল ফিক্সড */
+        .payment-icons { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; align-items: center; }
+        .pay-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .pay-item img { height: 25px; object-fit: contain; }
+        .pay-item span { font-size: 10px; font-weight: bold; color: #888; text-transform: uppercase; }
 
         .bag-icon { position: fixed; top: 25px; right: 20px; background: #1a1a1a; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; cursor: pointer; }
         #cart-count { position: absolute; top: -5px; right: -5px; background: #ff4d4d; font-size: 10px; padding: 2px 6px; border-radius: 50%; }
@@ -66,14 +70,14 @@
 <div class="grid">
     <div class="card reveal">
         <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400">
-        <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <div class="star-rating">⭐⭐⭐⭐⭐</div>
         <h3>Velvet Lipstick</h3>
         <p class="price">550 ৳</p>
         <button class="btn-add-cart" onclick="addToCart('Velvet Lipstick', 550)">Add to Cart</button>
     </div>
     <div class="card reveal">
         <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400">
-        <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+        <div class="star-rating">⭐⭐⭐⭐</div>
         <h3>Glow Serum</h3>
         <p class="price">850 ৳</p>
         <button class="btn-add-cart" onclick="addToCart('Glow Serum', 850)">Add to Cart</button>
@@ -95,43 +99,8 @@
         </div>
         <div class="review-card">
             <div class="star-rating">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"সিরামটা ব্যবহারের পর স্কিন অনেক গ্লো করছে। থ্যাংক ইউ!"</p>
+            <p style="font-size: 13px;">"সিরামটা ব্যবহারের পর স্কিন অনেক গ্লো করছে।"</p>
             <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Anika Tabassum</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐.৫</div>
-            <p style="font-size: 13px;">"খুবই ভালো কোয়ালিটি। কাস্টমার সার্ভিস অনেক হেল্পফুল।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Nabila Zaman</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"গাজীপুর থেকে অর্ডার করেছি, পরের দিনই পেয়েছি। ফাস্ট ডেলিভারি!"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Sumaiya Jahan</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"প্রোডাক্ট জেনুইন। দাম হিসেবে কোয়ালিটি জাস্ট অসাম।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Farhana Rahman</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"এদের ব্যবহার খুব অমায়িক। প্রোডাক্টও প্রিমিয়াম।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Jarin Tasnim</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐.৫</div>
-            <p style="font-size: 13px;">"প্রথমবার অর্ডার করে আমি সন্তুষ্ট। ভবিষ্যতে আবার নিবো।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Sadiya Afrin</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"আসল বিদেশি কসমেটিকস পাওয়া দুষ্কর, কিন্তু তূরা'স এলিগ্যান্স সেরা।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Tania Khan</p>
-        </div>
-        <div class="review-card">
-            <div class="star-rating">⭐⭐⭐⭐</div>
-            <p style="font-size: 13px;">"প্যাকেজিংটা আরও উন্নত করা যেতো, তবে প্রোডাক্ট টপ নচ।"</p>
-            <p style="font-weight: bold; margin-top: 10px; font-size: 12px;">- Lamia Islam</p>
         </div>
     </div>
 </section>
@@ -140,32 +109,36 @@
     <div class="footer-grid">
         <div>
             <h3 style="color:#d63384; font-family:'Playfair Display'; margin-bottom:15px;">About Us</h3>
-            <p style="font-size:14px; color:#666; line-height:1.6;">তূরা'স এলিগ্যান্স কেবল একটি শপ নয়, এটি আস্থার নাম। আমরা সরাসরি সংগৃহীত ১০০% অরিজিনাল এবং প্রিমিয়াম কসমেটিকস পৌঁছে দিই আপনার দোরগোড়ায়। আপনার সৌন্দর্য আমাদের অগ্রাধিকার।</p>
+            <p style="font-size:14px; color:#666; line-height:1.6;">তূরা'স এলিগ্যান্স কেবল একটি শপ নয়, এটি আস্থার নাম। সরাসরি সংগৃহীত ১০০% অরিজিনাল প্রিমিয়াম কসমেটিকস।</p>
             <div style="margin-top: 15px; border-left: 3px solid #d63384; padding-left: 10px;">
                 <p style="font-size: 15px; font-weight: bold;">Mrs. Tushar Imran</p>
                 <p style="font-size: 12px; color: #d63384;">Founder & CEO</p>
             </div>
+            
             <div class="payment-icons">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Visa_Confidential.png" alt="Visa">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png" alt="MasterCard">
-                <img src="https://freelogopng.com/images/all_img/1656234745bkash-app-logo-png.png" alt="bKash">
-                <img src="https://seeklogo.com/images/N/nagad-logo-7A70CC6684-seeklogo.com.png" alt="Nagad">
-            </div>
-        </div>
-        <div>
-            <h3 style="color:#d63384; font-family:'Playfair Display'; margin-bottom:15px;">Customer Support</h3>
-            <p style="font-size:14px; color:#666;"><i class="fa-solid fa-location-dot"></i> Shib bari, Gazipur, Bangladesh</p>
-            <p style="font-size:14px; color:#666;"><i class="fa-solid fa-phone"></i> +880 1794-296589</p>
-            <div style="margin-top: 15px;">
-                <a href="https://www.facebook.com/tus.six.nine" target="_blank" style="color: #1877F2; font-size: 24px; margin-right: 15px;"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/fzs6_9?igsh=MW1ra2ZocDRmbng2cQ==" target="_blank" style="color: #E4405F; font-size: 24px;"><i class="fa-brands fa-instagram"></i></a>
+                <div class="pay-item">
+                    <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+                    <span>Visa</span>
+                </div>
+                <div class="pay-item">
+                    <img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard">
+                    <span>Mastercard</span>
+                </div>
+                <div class="pay-item">
+                    <img src="https://freelogopng.com/images/all_img/1656234745bkash-app-logo-png.png" alt="bKash">
+                    <span>bKash</span>
+                </div>
+                <div class="pay-item">
+                    <img src="https://freelogopng.com/images/all_img/1679248787nagad-logo-png.png" alt="Nagad">
+                    <span>Nagad</span>
+                </div>
             </div>
         </div>
         <div>
             <h3 style="color:#d63384; font-family:'Playfair Display'; margin-bottom:15px;">Support Center</h3>
-            <p style="cursor:pointer; font-size:14px; color:#666; margin-bottom:8px;" onclick="showPolicy('Privacy Policy', 'আমরা আপনার গোপনীয়তাকে সর্বোচ্চ গুরুত্ব দেই। আপনার নাম, ফোন নম্বর এবং ঠিকানা কেবল অর্ডার ডেলিভারির কাজে ব্যবহার করা হয় এবং আমাদের সিস্টেমে এনক্রিপ্টেড অবস্থায় থাকে।')">Privacy Policy</p>
-            <p style="cursor:pointer; font-size:14px; color:#666; margin-bottom:8px;" onclick="showPolicy('Store Policy', '১. প্রতিটি প্রোডাক্ট ১০০% অরিজিনাল। ২. ডেলিভারি ম্যানের সামনে প্রোডাক্ট চেক করে রিসিভ করার অনুরোধ রইলো। ৩. ইনট্যাক্ট প্রোডাক্ট খোলার পর কোনো কালার পছন্দ না হলে রিটার্ন প্রযোজ্য নয়।')">Store Policy</p>
-            <p style="cursor:pointer; font-size:14px; color:#666;" onclick="showPolicy('Shipping Info', 'ঢাকা সিটির ভেতরে ডেলিভারি চার্জ ৮০ টাকা (২৪-৪৮ ঘণ্টা)। ঢাকার বাইরে ১২০ টাকা (২-৩ দিন)। ক্যাশ অন ডেলিভারি সুবিধা পাওয়া যাবে।')">Shipping Info</p>
+            <p style="cursor:pointer; font-size:14px; color:#666; margin-bottom:8px;" onclick="showPolicy('Privacy Policy', 'আপনার ডাটা আমাদের কাছে নিরাপদ।')">Privacy Policy</p>
+            <p style="cursor:pointer; font-size:14px; color:#666; margin-bottom:8px;" onclick="showPolicy('Store Policy', '১০০% অরিজিনাল প্রোডাক্টের নিশ্চয়তা।')">Store Policy</p>
+            <p style="cursor:pointer; font-size:14px; color:#666;" onclick="showPolicy('Shipping Info', 'ঢাকা ৮০৳, ঢাকার বাইরে ১২০৳।')">Shipping Info</p>
         </div>
     </div>
     <p style="text-align: center; margin-top: 40px; font-size: 12px; color: #999;">&copy; 2026 Tura's Elegance | Developed with Love 🌹</p>
