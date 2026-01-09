@@ -14,18 +14,13 @@
         .logo { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #880e4f; margin-bottom: 10px; }
         header h1 { font-size: 20px; margin: 0; color: #880e4f; text-transform: uppercase; letter-spacing: 1px; }
 
-        .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; background: #fff; }
-        .cat-item { background: white; padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; font-size: 13px; font-weight: 500; cursor: pointer; }
-        .cat-item.active { background: #880e4f; color: white; border-color: #880e4f; }
-
         .container { padding: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 10px; }
         .product-img { width: 100%; aspect-ratio: 1/1; background: #f0f0f0; object-fit: cover; }
-        .product-info { padding: 8px; }
-        .product-name { font-size: 13px; margin: 5px 0; font-weight: 600; }
-        .product-price { color: #880e4f; font-weight: bold; }
+        .product-name { font-size: 13px; margin: 10px 0 5px; font-weight: 600; }
+        .product-price { color: #880e4f; font-weight: bold; margin-bottom: 10px; }
         
-        .btn-buy { background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: bold; }
+        .btn-buy { background: #25D366; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: bold; }
 
         /* Order Form Section */
         #order-section { display: none; padding: 20px; background: #fff; margin: 20px 10px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -37,31 +32,29 @@
         .input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
         .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
 
+        /* Modal / Information Styles */
+        #info-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; padding: 20px; }
+        .modal-content { background: white; padding: 25px; border-radius: 15px; max-height: 80%; overflow-y: auto; margin-top: 50px; position: relative; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #880e4f; font-weight: bold; }
+
         .footer-links { background: #fff; padding: 30px 20px; border-top: 1px solid #eee; margin-top: 20px; text-align: center; }
-        .footer-links a { display: block; text-decoration: none; color: #666; font-size: 14px; margin-bottom: 10px; }
+        .footer-links a { display: block; text-decoration: none; color: #666; font-size: 14px; margin-bottom: 15px; cursor: pointer; }
 
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 2000; }
         .nav-item { text-align: center; text-decoration: none; color: #666; font-size: 11px; flex: 1; }
         .nav-item i { font-size: 20px; display: block; margin-bottom: 4px; }
-        .nav-item.active { color: #880e4f; }
     </style>
 </head>
 <body>
 
-<header>
+<header id="page-header">
     <img src="logo.png" alt="Logo" class="logo">
-    <h1>Tura's Elegance 💖</h1>
+    <h1>Tura's Elegance </h1>
 </header>
 
 <div id="home-content">
-    <div class="categories">
-        <div class="cat-item active">All Items</div>
-        <div class="cat-item">New Arrivals</div>
-        <div class="cat-item">Cosmetics</div>
-    </div>
-
     <div class="container">
-        <div style="grid-column: span 2; background: #fff5f8; padding: 10px; border-radius: 10px; text-align: center; font-size: 13px; border: 1px solid #eee;">
+        <div style="grid-column: span 2; background: #fff5f8; padding: 10px; border-radius: 10px; text-align: center; font-size: 13px; border: 1px solid #eee; margin-bottom: 10px;">
             🚚 Dhaka: 80৳ | Outside Dhaka: 120৳
         </div>
 
@@ -86,34 +79,42 @@
 </div>
 
 <div id="order-section">
-    <button onclick="hideOrderForm()" style="border: none; background: none; color: #880e4f; font-weight: bold; cursor: pointer; margin-bottom: 10px;">← Back</button>
+    <button onclick="hideOrderForm()" style="border: none; background: none; color: #880e4f; font-weight: bold; cursor: pointer; margin-bottom: 15px;">← Back</button>
     <div class="notice-box">
         <h3>Valued Customer ✨</h3>
         <p>Our priority is to deliver your chosen product safely. Please provide your correct details below to complete your order.</p>
     </div>
     <div class="input-group">
         <label>Full Name *</label>
-        <input type="text" id="custName" placeholder="">
+        <input type="text" id="custName">
     </div>
     <div class="input-group">
         <label>Full Address *</label>
-        <textarea id="custAddress" rows="3" placeholder=""></textarea>
+        <textarea id="custAddress" rows="3"></textarea>
     </div>
     <div class="input-group">
         <label>Phone Number *</label>
-        <input type="tel" id="custPhone" placeholder="">
+        <input type="tel" id="custPhone">
     </div>
     <button class="btn-buy" style="width: 100%; padding: 15px; font-size: 16px; background: #25D366;" onclick="sendToWhatsApp()">Confirm Order</button>
 </div>
 
+<div id="info-modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <h2 id="modal-title" style="color: #880e4f; font-size: 18px;"></h2>
+        <div id="modal-body" style="font-size: 14px; line-height: 1.6; color: #444;"></div>
+    </div>
+</div>
+
 <div class="footer-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms and Conditions</a>
+    <a onclick="showInfo('Privacy Policy', 'At Tura\'s Elegance, your privacy is our priority. We only use your name, address, and phone number to process and deliver your orders safely.')">Privacy Policy</a>
+    <a onclick="showInfo('Terms and Conditions', '1. Provide correct details for confirmation. 2. Please check products during delivery. 3. Orders depend on stock availability.')">Terms and Conditions</a>
     <p style="font-size: 12px; color: #999;">© 2026 Tura's Elegance | All Rights Reserved.</p>
 </div>
 
 <div class="bottom-nav">
-    <a href="#" class="nav-item active" onclick="hideOrderForm()">
+    <a href="#" class="nav-item" onclick="hideOrderForm()">
         <i class="fa-solid fa-house"></i> Home
     </a>
     <a href="https://api.whatsapp.com/send?phone=8801794296589" class="nav-item" style="color: #25D366;">
@@ -137,6 +138,17 @@
     function hideOrderForm() {
         document.getElementById('home-content').style.display = 'block';
         document.getElementById('order-section').style.display = 'none';
+        window.scrollTo(0,0);
+    }
+
+    function showInfo(title, body) {
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-body').innerText = body;
+        document.getElementById('info-modal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('info-modal').style.display = 'none';
     }
 
     function sendToWhatsApp() {
