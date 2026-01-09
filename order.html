@@ -9,107 +9,85 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: #fff5f8; padding: 20px; overflow-x: hidden; text-align: center; }
-        
-        /* রোজ ইফেক্ট */
-        .rose-petal { position: fixed; top: -50px; user-select: none; z-index: 9999; pointer-events: none; animation: fall linear infinite; }
-        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-
-        .container { max-width: 450px; margin: 20px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; z-index: 10; }
+        .container { max-width: 450px; margin: 20px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         h2 { font-family: 'Playfair Display', serif; color: #d63384; margin-bottom: 20px; }
-        
-        .order-summary { background: #fffafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #ffb7d5; text-align: left; }
-        .summary-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-        .total-row { border-top: 1px solid #eee; margin-top: 10px; padding-top: 10px; font-weight: bold; font-size: 18px; color: #d63384; }
-
-        .label-text { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; color: #444; text-align: left; margin-top: 15px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; outline: none; background: #f9f9f9; font-size: 14px; }
-        
-        .delivery-box { background: #fdf2f7; padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid #ffe4ef; text-align: left; }
-        .delivery-option { display: flex; align-items: center; margin-top: 10px; font-size: 14px; cursor: pointer; }
-        .delivery-option input { width: auto; margin-right: 12px; }
-
-        .btn-confirm { width: 100%; padding: 16px; background: #2ecc71; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 25px; box-shadow: 0 4px 15px rgba(46,204,113,0.3); }
-        
-        #success-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.15); z-index: 10000; width: 85%; }
+        .summary-box { background: #fffafc; padding: 20px; border-radius: 12px; border: 1px dashed #ffb7d5; text-align: left; margin-bottom: 20px; }
+        .input-group { text-align: left; margin-top: 15px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; background: #f9f9f9; margin-top: 5px; }
+        .delivery-option { display: flex; align-items: center; margin-top: 10px; background: #fdf2f7; padding: 10px; border-radius: 8px; cursor: pointer; }
+        .btn-confirm { width: 100%; padding: 16px; background: #2ecc71; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 25px; box-shadow: 0 4px 15px rgba(46,204,113,0.2); }
+        #success-popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); z-index: 10000; width: 85%; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9999; }
     </style>
 </head>
 <body>
 
-<div id="rose-container"></div>
 <div class="overlay" id="overlay"></div>
-<div id="success-popup"><h3>🌹 Order Successful!</h3><p>Tracking ID: <span id="tracking-id"></span></p></div>
+<div id="success-popup">
+    <div style="font-size: 50px;">🌹</div>
+    <h3 style="color: #d63384;">Order Successful!</h3>
+    <p style="margin-top: 10px;">Tracking ID: <strong id="tid-show"></strong></p>
+    <p style="font-size: 12px; color: #888; margin-top: 5px;">Redirecting to WhatsApp...</p>
+</div>
 
 <div class="container">
     <h2>Complete Order</h2>
-    <div class="order-summary">
-        <p id="display-products" style="font-size: 14px; font-weight: 600; margin-bottom: 10px;"></p>
-        <div class="summary-item"><span>Subtotal:</span><span><span id="subtotal-val">0</span> ৳</span></div>
-        <div class="summary-item"><span>Delivery:</span><span><span id="delivery-val">80</span> ৳</span></div>
-        <div class="summary-item total-row"><span>Total:</span><span><span id="final-total">0</span> ৳</span></div>
+    <div class="summary-box">
+        <p id="p-names" style="font-weight: 600; margin-bottom: 10px; font-size: 14px;"></p>
+        <p style="display:flex; justify-content:space-between; font-size:14px;">Subtotal: <span><span id="sub-val">0</span> ৳</span></p>
+        <p style="display:flex; justify-content:space-between; font-size:14px; margin-top:5px;">Delivery: <span><span id="del-val">80</span> ৳</span></p>
+        <p style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; color:#d63384; border-top:1px solid #eee; margin-top:10px; padding-top:10px;">Total: <span><span id="total-val">0</span> ৳</span></p>
     </div>
 
-    <label class="label-text">Your Name *</label>
-    <input type="text" id="cust-name" placeholder="নাম লিখুন">
-
-    <label class="label-text">Contact Number *</label>
-    <input type="tel" id="cust-phone" placeholder="01XXXXXXXXX">
-
-    <label class="label-text">Delivery Address *</label>
-    <textarea id="cust-address" rows="3" placeholder="পূর্ণাঙ্গ ঠিকানা লিখুন"></textarea>
-
-    <div class="delivery-box">
-        <p style="font-size: 13px; font-weight: bold; color: #d63384;">এরিয়া সিলেক্ট করুন:</p>
-        <label class="delivery-option"><input type="radio" name="delivery" value="80" onchange="updateTotal()" checked> ঢাকা (৮০৳)</label>
-        <label class="delivery-option"><input type="radio" name="delivery" value="120" onchange="updateTotal()"> ঢাকার বাইরে (১২০৳)</label>
+    <div class="input-group">
+        <label style="font-size:13px; font-weight:600;">Full Name *</label>
+        <input type="text" id="name" placeholder="আপনার নাম">
+    </div>
+    <div class="input-group">
+        <label style="font-size:13px; font-weight:600;">Contact Number *</label>
+        <input type="tel" id="phone" placeholder="01XXXXXXXXX">
+    </div>
+    <div class="input-group">
+        <label style="font-size:13px; font-weight:600;">Delivery Address *</label>
+        <textarea id="address" rows="3" placeholder="পূর্ণাঙ্গ ঠিকানা"></textarea>
     </div>
 
-    <button class="btn-confirm" onclick="confirmOrder()">Confirm via WhatsApp</button>
+    <div style="text-align:left; margin-top:20px;">
+        <label class="delivery-option"><input type="radio" name="area" value="80" onchange="calc()" checked style="width:auto; margin-right:10px;"> ঢাকা (৮০৳)</label>
+        <label class="delivery-option"><input type="radio" name="area" value="120" onchange="calc()" style="width:auto; margin-right:10px;"> ঢাকার বাইরে (১২০৳)</label>
+    </div>
+
+    <button class="btn-confirm" onclick="confirm()">Confirm Order via WhatsApp</button>
 </div>
 
 <script>
-    const roseIcons = ['🌹', '🥀', '🖤', '🌸'];
-    function rainRoses() {
-        const container = document.getElementById('rose-container');
-        const flower = document.createElement('div');
-        flower.className = 'rose-petal';
-        flower.innerHTML = roseIcons[Math.floor(Math.random() * roseIcons.length)];
-        flower.style.left = Math.random() * 100 + 'vw';
-        flower.style.fontSize = Math.random() * 10 + 15 + 'px';
-        flower.style.animationDuration = Math.random() * 3 + 4 + 's';
-        container.appendChild(flower);
-        setTimeout(() => flower.remove(), 6000);
-    }
-    setInterval(rainRoses, 250);
-
     const params = new URLSearchParams(window.location.search);
-    const subtotal = parseInt(params.get('total')) || 0;
-    document.getElementById('display-products').innerText = params.get('products') || "No items";
-    document.getElementById('subtotal-val').innerText = subtotal;
+    const sub = parseInt(params.get('total')) || 0;
+    document.getElementById('p-names').innerText = params.get('products');
+    document.getElementById('sub-val').innerText = sub;
 
-    function updateTotal() {
-        const charge = parseInt(document.querySelector('input[name="delivery"]:checked').value);
-        document.getElementById('delivery-val').innerText = charge;
-        document.getElementById('final-total').innerText = subtotal + charge;
+    function calc() {
+        const d = parseInt(document.querySelector('input[name="area"]:checked').value);
+        document.getElementById('del-val').innerText = d;
+        document.getElementById('total-val').innerText = sub + d;
     }
-    updateTotal();
+    calc();
 
-    function confirmOrder() {
-        const name = document.getElementById('cust-name').value;
-        const phone = document.getElementById('cust-phone').value;
-        const address = document.getElementById('cust-address').value;
-        if(!name || !phone || !address) { alert("সব তথ্য দিন!"); return; }
+    function confirm() {
+        const n = document.getElementById('name').value;
+        const p = document.getElementById('phone').value;
+        const a = document.getElementById('address').value;
+        if(!n || !p || !a) { alert("সব ঘর পূরণ করুন ব্রো!"); return; }
 
         const tid = "TE-" + Math.floor(1000 + Math.random() * 9000);
-        document.getElementById('tracking-id').innerText = tid;
+        document.getElementById('tid-show').innerText = tid;
         confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         document.getElementById('success-popup').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
 
         setTimeout(() => {
-            const total = document.getElementById('final-total').innerText;
-            const charge = document.getElementById('delivery-val').innerText;
-            const msg = `🌹 *Order #${tid}*%0A*Products:* ${params.get('products')}%0A*Total:* ${total} ৳%0A*Name:* ${name}%0A*Contact:* ${phone}%0A*Address:* ${address}`;
+            const finalTotal = document.getElementById('total-val').innerText;
+            const msg = `🌹 *Order #${tid}*%0A*Items:* ${params.get('products')}%0A*Total:* ${finalTotal} ৳%0A👤 *Customer:* ${n}%0A📞 *Phone:* ${p}%0A📍 *Address:* ${a}`;
             window.location.href = `https://wa.me/8801794296589?text=${msg}`;
         }, 3000);
     }
