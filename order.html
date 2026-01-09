@@ -1,68 +1,133 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order - Tura's Elegance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Checkout - Tura's Elegance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #fdfbfd; color: #333; }
-        .header { background: linear-gradient(90deg, #ff80bf, #b57dff); padding: 25px; text-align: center; color: white; border-radius: 0 0 25px 25px; }
-        .header h2 { margin: 0; font-size: 18px; font-weight: 600; }
-        .container { max-width: 500px; margin: 20px auto; padding: 15px; }
-        .order-box { background: white; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
-        .product-summary { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .p-icon { width: 45px; height: 45px; background: #f3e5f5; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #880e4f; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #555; }
-        .form-group input, .form-group textarea { width: 100%; padding: 14px; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 14px; outline: none; background: #fafafa; }
-        .delivery-box { background: #fff9fb; padding: 15px; border-radius: 12px; border: 1px solid #ffeef5; margin-bottom: 25px; }
-        .d-title { font-size: 13px; font-weight: bold; margin-bottom: 12px; display: block; color: #880e4f; }
-        .radio-group { display: flex; gap: 20px; }
-        .radio-item { font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .btn-confirm { width: 100%; padding: 16px; background: #25D366; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background: #fff5f8; padding: 20px; overflow-x: hidden; }
+
+        /* ফুলের পাপড়ি অ্যানিমেশন */
+        .petal { position: fixed; top: -50px; user-select: none; z-index: 9999; pointer-events: none; animation: fall linear infinite; }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 500px; margin: 40px auto; background: rgba(255, 255, 255, 0.9);
+            padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(255, 128, 191, 0.2);
+            backdrop-filter: blur(10px); position: relative; z-index: 10;
+        }
+
+        h2 { font-family: 'Playfair Display', serif; margin-bottom: 20px; text-align: center; }
+        .order-summary { background: #fff0f5; padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #ff80bf; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ffdeeb; border-radius: 10px; outline: none; }
+
+        .btn-confirm {
+            width: 100%; padding: 16px; background: #25D366; color: white; border: none;
+            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Success Pop-up Style */
+        #success-popup {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 30px; border-radius: 20px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); z-index: 10000; width: 80%; max-width: 350px;
+        }
+        #success-popup h3 { color: #d63384; margin-bottom: 10px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; }
     </style>
 </head>
 <body>
-<div class="header"><h2>অর্ডার কনফার্ম করুন - Tura's Elegance</h2></div>
-<div class="container">
-    <div class="order-box">
-        <div class="product-summary">
-            <div class="p-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-            <div>
-                <p style="margin: 0; font-size: 11px; color: #888;">YOUR ITEMS:</p>
-                <h3 id="selected-product" style="margin: 3px 0; color: #222; font-size: 14px;">Loading...</h3>
-                <p style="margin: 5px 0 0; font-weight: bold; color: #d63384;">Subtotal: <span id="display-total">0</span> ৳</p>
-            </div>
-        </div>
-        <div class="form-group"><label>আপনার নাম লিখুন *</label><input type="text" id="custName" placeholder="নাম লিখুন"></div>
-        <div class="form-group"><label>আপনার পূর্ণাঙ্গ ঠিকানা *</label><textarea id="custAddress" rows="3" placeholder="বাসা নং, রোড নং, এলাকা, জেলা..."></textarea></div>
-        <div class="form-group"><label>আপনার ফোন নম্বরটি লিখুন *</label><input type="tel" id="custPhone" placeholder="01XXXXXXXXX"></div>
-        <div class="delivery-box"><span class="d-title">ডেলিভারি এরিয়া সিলেক্ট করুন:</span><div class="radio-group">
-                <label class="radio-item"><input type="radio" name="dcharge" value="80" checked> ঢাকা (৮০৳)</label>
-                <label class="radio-item"><input type="radio" name="dcharge" value="120"> ঢাকার বাইরে (১২০৳)</label>
-            </div></div>
-        <button class="btn-confirm" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
-    </div>
+
+<div id="order-petal-container"></div>
+<div class="overlay" id="overlay"></div>
+
+<div id="success-popup">
+    <div style="font-size: 50px;">🎉</div>
+    <h3>Order Successful!</h3>
+    <p>Redirecting to WhatsApp...</p>
 </div>
+
+<div class="container">
+    <h2>Complete Your Order</h2>
+    <div class="order-summary">
+        <p><strong>🛍️ Selected Items:</strong> <br><span id="display-products" style="color: #d63384; font-size: 14px;"></span></p>
+        <p style="margin-top: 10px;"><strong>💰 Total Amount:</strong> <span id="display-total"></span> ৳</p>
+    </div>
+
+    <div class="form-group"><label>Your Name</label><input type="text" id="cust-name"></div>
+    <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="cust-phone"></div>
+    <div class="form-group"><label>Delivery Address</label><textarea id="cust-address" rows="3"></textarea></div>
+
+    <button class="btn-confirm" onclick="handleOrder()">Confirm Order via WhatsApp</button>
+</div>
+
 <script>
+    // ফুলের ইফেক্ট
+    const icons = ['🌸', '💮', '🌹', '✨'];
+    function createFlower() {
+        const container = document.getElementById('order-petal-container');
+        const flower = document.createElement('div');
+        flower.className = 'petal';
+        flower.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+        flower.style.left = Math.random() * 100 + 'vw';
+        flower.style.fontSize = Math.random() * 10 + 15 + 'px';
+        flower.style.animationDuration = Math.random() * 3 + 4 + 's';
+        container.appendChild(flower);
+        setTimeout(() => { flower.remove(); }, 6000);
+    }
+    setInterval(createFlower, 250);
+
     const urlParams = new URLSearchParams(window.location.search);
-    const products = urlParams.get('products') || "No items";
-    const subtotal = urlParams.get('total') || "0";
-    document.getElementById('selected-product').innerText = products;
-    document.getElementById('display-total').innerText = subtotal;
-    function sendOrder() {
-        const name = document.getElementById('custName').value;
-        const address = document.getElementById('custAddress').value;
-        const phone = document.getElementById('custPhone').value;
-        const deliveryCharge = document.querySelector('input[name="dcharge"]:checked').value;
-        const finalTotal = parseInt(subtotal) + parseInt(deliveryCharge);
-        if(!name || !address || !phone) { alert("সব তথ্য দিন!"); return; }
-        const message = `*New Order from Tura's Elegance*%0A---------------------------%0A*📦 প্রোডাক্টস:* ${products}%0A*💰 আইটেম প্রাইস:* ${subtotal}৳%0A*🚚 ডেলিভারি চার্জ:* ${deliveryCharge}৳%0A*💵 সর্বমোট:* ${finalTotal}৳%0A---------------------------%0A👤 নাম: ${name}%0A📍 ঠিকানা: ${address}%0A📞 ফোন: ${phone}`;
-        window.open(`https://api.whatsapp.com/send?phone=8801794296589&text=${message}`, '_blank');
+    document.getElementById('display-products').innerText = urlParams.get('products');
+    document.getElementById('display-total').innerText = urlParams.get('total');
+
+    // সাউন্ড ফাইল (এটি একটি অনলাইন ডাইরেক্ট সাউন্ড লিঙ্ক)
+    const successSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+
+    function handleOrder() {
+        const name = document.getElementById('cust-name').value;
+        const phone = document.getElementById('cust-phone').value;
+        const address = document.getElementById('cust-address').value;
+
+        if(!name || !phone || !address) {
+            alert("সব তথ্য পূরণ করুন ব্রো! 😊");
+            return;
+        }
+
+        // ১. সাউন্ড বাজানো
+        successSound.play();
+
+        // ২. কনফেটি (রঙিন কাগজ) ওড়ানো
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff80bf', '#ffffff', '#ffb7d5']
+        });
+
+        // ৩. পপ-আপ দেখানো
+        document.getElementById('success-popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+
+        // ৪. ২ সেকেন্ড পর হোয়াটসঅ্যাপে পাঠানো
+        setTimeout(() => {
+            const myWhatsAppNumber = "8801794296589"; 
+            const products = urlParams.get('products');
+            const total = urlParams.get('total');
+            const message = `🛍️ *New Order from Tura's Elegance*%0A%0A*Products:* ${products}%0A*Total:* ${total} ৳%0A%0A👤 *Customer:* ${name}%0A*Phone:* ${phone}%0A*Address:* ${address}`;
+            window.location.href = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
+        }, 3000);
     }
 </script>
+
 </body>
 </html>
